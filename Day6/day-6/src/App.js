@@ -2,7 +2,9 @@ import './App.css';
 import {useState} from 'react'
 import Title from './components/Title';
 import Modal from './components/Modal';
+import EventList from './components/EventList';
 function App() {
+  const [showModal, setShowModal] = useState(false)
   const [showEvents, setShowEvents] =useState(true)
   const [events, setEvents] = useState([
     {title: "marios birthday bash", id:1},
@@ -16,14 +18,27 @@ function App() {
     })})
   }
 
+  const handleClose = () =>{
+    setShowModal(false)
+  }
+
+  const handleModal = () =>{
+    setShowModal(true)
+  }
+
+
   const subtitle = "All the latest events in Marioland"
   return (
-    <div>
     <div className="App">
-      <Modal/>
-      <Title title="Events in Your Area" subtitle = {subtitle}/>\
+     
+      <Title title="Events in Your Area" subtitle = {subtitle}/>
+      
 
-    </div>
+    {
+      showEvents && 
+      <EventList event = {events}  handleClick ={handleClick}/>
+    }
+
     {showEvents && <div>
       <button onClick={() => setShowEvents(false)}>hide events</button>
     </div>
@@ -32,14 +47,17 @@ function App() {
       <button onClick={() => setShowEvents(true)}>show events</button>
     </div>
     }
-    <ol>
-    {showEvents && events.map((e) => 
-    <div>
-    <li key={e.id}>{e.title}</li>
-    <button onClick={() => handleClick(e.id)}>Delete Event</button>
-    </div>
-    )}
-    </ol>
+
+    {showModal &&
+      <Modal handleClose= {handleClose}>
+    <h2>10% off Coupon Code</h2>
+        <p>Use the code NINJA10 at the checkout.</p>
+    </Modal>
+    }
+    {!showModal &&
+    <button onClick={handleModal}>Show Coupon</button>
+    
+    }
     </div>
   );
 }

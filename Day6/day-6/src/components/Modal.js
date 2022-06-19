@@ -1,10 +1,12 @@
-export default function Modal() {
-  return (
+import"./Modal.css";
+import ReactDOM  from "react-dom";
+export default function Modal({children, handleClose}) {
+  return ReactDOM.createPortal((
     <div className="modal-backdrop">
       <div className="modal">
-        <h2>10% off Coupon Code</h2>
-        <p>Use the code NINJA10 at the checkout.</p>
+        {children}
+        <button onClick={handleClose}>close</button>
       </div>
     </div>
-  )
+  ), document.body)
 }
