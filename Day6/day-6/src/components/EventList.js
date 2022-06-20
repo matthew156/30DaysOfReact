@@ -8,6 +8,7 @@ export default function EventList({event, handleClick}) {
                     <div className={styles.card} key = {event.id}>
                        <h2>{event.title}</h2>
                        <p><em>{event.date}</em></p>
+                       <p><em>{event.location}</em></p>
                        <button onClick={() => handleClick(event.id)}>Delete Event</button> 
                     </div>
             )
